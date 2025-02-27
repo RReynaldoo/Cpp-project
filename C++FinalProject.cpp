@@ -1,7 +1,7 @@
 #include <iostream>
 
 ///ALL animals should have this interface to make an array using polymorphism, I don't know how else make the array
-class IContainer{};
+class IContainer{};;;
 
 ///Template for animals
 class IAnimal
