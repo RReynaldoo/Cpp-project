@@ -1,3 +1,9 @@
+///SelfNotes
+/*
+    Lion::age -> :: is used to call a method that is inside a namespace or class
+    static variable have to be declare outside classes...for some reason
+*/
+
 #include <iostream>
 #include <vector>
 #include <string>
@@ -18,14 +24,14 @@ class IAnimal
         std::string species;
         int age;
         std::string habitat;
-        int amount = 0; //Number of animals for each species, helps keeping track of how many there are
     public:
-        IAnimal(std::string name, std::string species, int age, std::string habitat)
+        IAnimal(std::string name, std::string species, int age, std::string habitat){//Constructor of all animals
             setName(name);
             setSpecies(species);
             setAge(age);
             setHabitat(habitat);
-        //------------------------------
+        }
+        //Basic methods
         virtual void makeSound() const = 0;
         virtual void feed() const = 0;
         //Setters and getters to be inherited to the animals
@@ -73,98 +79,148 @@ class IEndangered
 ///Animals in the zoo-------------------------------------------------
 class Lion : public IAnimal, public IEndangered{
     using IAnimal::IAnimal;//To call the IAnimal Constructor
+    static int amount; //Number of animals for each species, helps keeping track of how many there are
     const int FoodRequired = 7;
+public:
+    static int getAmount(){ //returns the amount of animals
+        return amount; }
+    static void incrementAmount() {
+        amount++; }
 };
+int Lion::amount = 0;   //Sets the amount of Lions to 0
+
 class Elephant : public IAnimal, public IEndangered{
     using IAnimal::IAnimal;//To call the IAnimal Constructor
+    static int amount; //Number of animals for each species, helps keeping track of how many there are
     const int FoodRequired = 150;
+public:
+    static int getAmount(){ //returns the amount of animals
+        return amount; }
+    static void incrementAmount() {
+        amount++; }
 };
+int Elephant::amount = 0;
+
 class Axolotl : public IAnimal, public IEndangered{
     using IAnimal::IAnimal;//To call the IAnimal Constructor
+    static int amount; //Number of animals for each species, helps keeping track of how many there are
     const int FoodRequired = 0.01;
-
+public:
+    static int getAmount(){ //returns the amount of animals
+        return amount; }
+    static void incrementAmount() {
+        amount++; }
 };
+int Axolotl::amount = 0;
+
 class Giraffe : public IAnimal, public IEndangered{
     using IAnimal::IAnimal;//To call the IAnimal Constructor
+    static int amount; //Number of animals for each species, helps keeping track of how many there are
     const int FoodRequired = 30;
-
+public:
+    static int getAmount(){ //returns the amount of animals
+        return amount; }
+    static void incrementAmount() {
+        amount++; }
 };
+int Giraffe::amount = 0;
+
 class Zeebra : public IAnimal{
     using IAnimal::IAnimal;//To call the IAnimal Constructor
+    static int amount; //Number of animals for each species, helps keeping track of how many there are
     const int FoodRequired = 10;
-
+public:
+    static int getAmount(){ //returns the amount of animals
+        return amount; }
+    static void incrementAmount() {
+        amount++; }
 };
+int Zeebra::amount = 0;
+
 class Penguin : public IAnimal{
     using IAnimal::IAnimal;//To call the IAnimal Constructor
+    static int amount; //Number of animals for each species, helps keeping track of how many there are
     const int FoodRequired = 10;
-
+public:
+    static int getAmount(){ //returns the amount of animals
+        return amount; }
+    static void incrementAmount() {
+        amount++; }
 };
+int Penguin::amount = 0;
+
 class Sloth : public IAnimal{
     using IAnimal::IAnimal;//To call the IAnimal Constructor
+    static int amount; //Number of animals for each species, helps keeping track of how many there are
     const int FoodRequired = 1;
-
+public:
+    static int getAmount(){ //returns the amount of animals
+        return amount; }
+    static void incrementAmount() {
+        amount++; }
 };
-class OWl : public IAnimal{
+int Sloth::amount = 0;
+
+class Owl : public IAnimal{
     using IAnimal::IAnimal;//To call the IAnimal Constructor
+    static int amount; //Number of animals for each species, helps keeping track of how many there are
     const int FoodRequired = 0.3;
-
+public:
+    static int getAmount(){ //returns the amount of animals
+        return amount; }
+    static void incrementAmount() {
+        amount++; }
 };
+int Owl::amount = 0;
+
 ///------------------------------------------------------------------
 ///
 
-void AddAnimal(std::string name, std::string species, int age, std::string habitat, std::vector<IAnimal>& zoo)
+void AddAnimal(std::string name, std::string species, int age, std::string habitat, std::vector<IAnimal*>& zoo)
 {
     int amount = 0; //To locally store the amount of animals
     std::string animalID = " ";   //Name that the animal will have within the array
 
-
             if(species == "Lion"){
-                amount = Lion.getAmount();
+                amount = Lion::getAmount();
                 animalID = species + amount;
-                Lion animalID(name, species, age, habitat);
-                zoo.push_back(animalID);
+                zoo.push_back(new Lion(name, species, age, habitat));//Creates the new animal and pushes it to the end of the vector(array)
             }
             if(species == "Elephant" ){
-                amount = Lion.getAmount();
+                amount = Elephant::getAmount();
                 animalID = species + amount;
-                Elephant animalID(name, species, age, habitat);
-                zoo.push_back(animalID);
+                zoo.push_back(new Elephant(name, species, age, habitat));//Creates the new animal and pushes it to the end of the vector(array)
                 }
             if(species == "Axolotl"){
-                amount = Lion.getAmount();
+                amount = Axolotl::getAmount();
                 animalID = species + amount;
-                Axolotl animalID(name, species, age, habitat);
-                zoo.push_back(animalID);
+                zoo.push_back(new Axolotl(name, species, age, habitat));//Creates the new animal and pushes it to the end of the vector(array)
                 }
             if(species == "Giraffe"){
-                amount = Lion.getAmount();
+                amount = Giraffe::getAmount();
                 animalID = species + amount;
-                Giraffe animalID(name, species, age, habitat);
-                zoo.push_back(animalID);
+                zoo.push_back(new Giraffe(name, species, age, habitat));//Creates the new animal and pushes it to the end of the vector(array)
                 }
             if(species == "Zeebra"){
-                amount = Lion.getAmount();
+                amount = Zeebra::getAmount();
                 animalID = species + amount;
-                Zeebra animalID(name, species, age, habitat);
-                zoo.push_back(animalID);
+                zoo.push_back(new Zeebra(name, species, age, habitat));//Creates the new animal and pushes it to the end of the vector(array)
                 }
             if(species == "Penguin"){
-                amount = Lion.getAmount();
+                amount = Penguin::getAmount();
                 animalID = species + amount;
-                Penguin animalID(name, species, age, habitat);
-                zoo.push_back(animalID);
+                zoo.push_back(new Penguin(name, species, age, habitat));//Creates the new animal and pushes it to the end of the vector(array)
+
                 }
             if(species == "Sloth"){
-                amount = Lion.getAmount();
+                amount = Sloth::getAmount();
                 animalID = species + amount;
-                Sloth animalID(name, species, age, habitat);
-                zoo.push_back(animalID);
+                zoo.push_back(new Sloth(name, species, age, habitat));//Creates the new animal and pushes it to the end of the vector(array)
                 }
             if(species == "Owl"){
-                amount = Lion.getAmount();
+                amount = Owl::getAmount();
                 animalID = species + amount;
-                Owl animalID(name, species, age, habitat);
-                zoo.push_back(animalID);
+                zoo.push_back(new Owl(name, species, age, habitat));//Creates the new animal and pushes it to the end of the vector(array)
                 }
             else{
                 std::cout << "Something went wrong while creating the animal (IF-ELSE), FATAL ERROR";
@@ -174,7 +230,7 @@ void AddAnimal(std::string name, std::string species, int age, std::string habit
     }
 }
 
-void RemoveAnimal(std:string name, std::vector<IAnimal*>& zoo){///Removes an animal
+void RemoveAnimal(std::string name, std::vector<IAnimal*>& zoo){///Removes an animal
     for(int i = 0; i < zoo.size(); i++){
         if(zoo[i]->getName() == name){
             delete zoo[i];  //bye bye object
@@ -193,7 +249,6 @@ void DisplayAnimals(std::vector<IAnimal*>& zoo){///Displays all the animals
 
 int main()
 {
-    Lion.age;
     std::vector<IAnimal*> zoo;//Container for animals, it can increase in size dinamically.
 
 
