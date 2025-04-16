@@ -4,6 +4,8 @@
 #include <algorithm>
 #include <cctype>
 
+
+
 ///ALL animals should have this interface to make an array using polymorphism, it will also contain essential methods
 class IContainer{
 };
@@ -70,27 +72,33 @@ class IEndangered
 ///
 ///Animals in the zoo-------------------------------------------------
 class Lion : public IAnimal, public IEndangered{
-
+    const int FoodRequired = 7;
 };
 class Elephant : public IAnimal, public IEndangered{
-
+    const int FoodRequired = 150;
 };
 class Axolotl : public IAnimal, public IEndangered{
+    const int FoodRequired = 0.01;
 
 };
 class Giraffe : public IAnimal, public IEndangered{
+    const int FoodRequired = 30;
 
 };
 class Zeebra : public IAnimal{
+    const int FoodRequired = 10;
 
 };
 class Penguin : public IAnimal{
+    const int FoodRequired = 10;
 
 };
 class Sloth : public IAnimal{
+    const int FoodRequired = 1;
 
 };
 class OWl : public IAnimal{
+    const int FoodRequired = 0.3;
 
 };
 ///------------------------------------------------------------------
@@ -183,3 +191,26 @@ int main()
 
     return 0;
 }
+
+///Pending
+/*
+    -Recursive function to know the total amount of food the animals will need
+    -The sound of animals and feed methods
+    -Habitat class/method: Area for animals and that has a certain capacity for each animal
+*/
+///Main
+/*
+    -Add animals
+    -Remove animals
+    -Calculate total food required
+    -Chech habitat space to add more animals
+*/
+///Extras
+/*
+    -Add ASCII animal representation when displaying them
+    -Add money to the game to buy food
+    -Add option to allow people to enter the zoo and gain money
+    -If an animal passes a certain age/days without eating dies
+    -Option to make a day pass
+*/
+
