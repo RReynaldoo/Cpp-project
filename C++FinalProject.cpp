@@ -21,7 +21,14 @@ class IAnimal
         int amount = 0; //Number of animals for each species, helps keeping track of how many there are
         virtual void makeSound() const = 0;
         virtual void feed() const = 0;
-    public://Setters and getters to be inherited to the animals
+    public:
+        IAnimal()
+            setName(name);
+            setSpecies(species);
+            setAge(age);
+            setHabitat(habitat);
+        //------------------------------
+        //Setters and getters to be inherited to the animals
         void setName(std::string name){
             this->name = name;
         }
@@ -65,61 +72,28 @@ class IEndangered
 ///
 ///Animals in the zoo-------------------------------------------------
 class Lion : public IAnimal, public IEndangered{
-    Lion(){
-    setName(name);
-    setSpecies(species);
-    setAge(age);
-    setHabitat(habitat);
-    }
+
 };
 class Elephant : public IAnimal, public IEndangered{
-    Elephant(){
-    setName(name);
-    setSpecies(species);
-    setAge(age);
-    setHabitat(habitat);
+
 };
 class Axolotl : public IAnimal, public IEndangered{
-    Axolotl(){
-    setName(name);
-    setSpecies(species);
-    setAge(age);
-    setHabitat(habitat);
+
 };
 class Giraffe : public IAnimal, public IEndangered{
-    Giraffe(){
-    setName(name);
-    setSpecies(species);
-    setAge(age);
-    setHabitat(habitat);
+
 };
 class Zeebra : public IAnimal{
-    Zeebra(){
-    setName(name);
-    setSpecies(species);
-    setAge(age);
-    setHabitat(habitat);
+
 };
 class Penguin : public IAnimal{
-    Penguin(){
-    setName(name);
-    setSpecies(species);
-    setAge(age);
-    setHabitat(habitat);
+
 };
 class Sloth : public IAnimal{
-    Sloth(){
-    setName(name);
-    setSpecies(species);
-    setAge(age);
-    setHabitat(habitat);
+
 };
 class OWl : public IAnimal{
-    Owl(){
-    setName(name);
-    setSpecies(species);
-    setAge(age);
-    setHabitat(habitat);
+
 };
 ///------------------------------------------------------------------
 ///
