@@ -19,15 +19,15 @@ class IAnimal
         int age;
         std::string habitat;
         int amount = 0; //Number of animals for each species, helps keeping track of how many there are
-        virtual void makeSound() const = 0;
-        virtual void feed() const = 0;
     public:
-        IAnimal()
+        IAnimal(std::string name, std::string species, int age, std::string habitat)
             setName(name);
             setSpecies(species);
             setAge(age);
             setHabitat(habitat);
         //------------------------------
+        virtual void makeSound() const = 0;
+        virtual void feed() const = 0;
         //Setters and getters to be inherited to the animals
         void setName(std::string name){
             this->name = name;
@@ -72,32 +72,40 @@ class IEndangered
 ///
 ///Animals in the zoo-------------------------------------------------
 class Lion : public IAnimal, public IEndangered{
+    using IAnimal::IAnimal();//To call the IAnimal Constructor
     const int FoodRequired = 7;
 };
 class Elephant : public IAnimal, public IEndangered{
+    using IAnimal::IAnimal();//To call the IAnimal Constructor
     const int FoodRequired = 150;
 };
 class Axolotl : public IAnimal, public IEndangered{
+    using IAnimal::IAnimal();//To call the IAnimal Constructor
     const int FoodRequired = 0.01;
 
 };
 class Giraffe : public IAnimal, public IEndangered{
+    using IAnimal::IAnimal();//To call the IAnimal Constructor
     const int FoodRequired = 30;
 
 };
 class Zeebra : public IAnimal{
+    using IAnimal::IAnimal();//To call the IAnimal Constructor
     const int FoodRequired = 10;
 
 };
 class Penguin : public IAnimal{
+    using IAnimal::IAnimal();//To call the IAnimal Constructor
     const int FoodRequired = 10;
 
 };
 class Sloth : public IAnimal{
+    using IAnimal::IAnimal();//To call the IAnimal Constructor
     const int FoodRequired = 1;
 
 };
 class OWl : public IAnimal{
+    using IAnimal::IAnimal();//To call the IAnimal Constructor
     const int FoodRequired = 0.3;
 
 };
@@ -109,59 +117,59 @@ void AddAnimal(std::string name, std::string species, int age, std::string habit
     int amount = 0; //To locally store the amount of animals
     std::string animalID = " ";   //Name that the animal will have within the array
 
-    for (IAnimal animal : zoo){ //Depending on the selection, creates an animal
-        switch(animal){
-            case "Lion":
+
+            if(species == "Lion"){
                 amount = Lion.getAmount();
                 animalID = species + amount;
                 Lion animalID(name, species, age, habitat);
                 zoo.push_back(animalID);
-                break;
-            case "Elephant":
+            }
+            if(species == "Elephant" ){
                 amount = Lion.getAmount();
                 animalID = species + amount;
                 Elephant animalID(name, species, age, habitat);
                 zoo.push_back(animalID);
-                break;
-            case "Axolotl":
+                }
+            if(species == "Axolotl"){
                 amount = Lion.getAmount();
                 animalID = species + amount;
                 Axolotl animalID(name, species, age, habitat);
                 zoo.push_back(animalID);
-                break;
-            case "Giraffe":
+                }
+            if(species == "Giraffe"){
                 amount = Lion.getAmount();
                 animalID = species + amount;
                 Giraffe animalID(name, species, age, habitat);
                 zoo.push_back(animalID);
-                break;
-            case "Zeebra":
+                }
+            if(species == "Zeebra"){
                 amount = Lion.getAmount();
                 animalID = species + amount;
                 Zeebra animalID(name, species, age, habitat);
                 zoo.push_back(animalID);
-                break;
-            case "Penguin":
+                }
+            if(species == "Penguin"){
                 amount = Lion.getAmount();
                 animalID = species + amount;
                 Penguin animalID(name, species, age, habitat);
                 zoo.push_back(animalID);
-                break;
-            case "Sloth":
+                }
+            if(species == "Sloth"){
                 amount = Lion.getAmount();
                 animalID = species + amount;
                 Sloth animalID(name, species, age, habitat);
                 zoo.push_back(animalID);
-                break;
-            case "Owl":
+                }
+            if(species == "Owl"){
                 amount = Lion.getAmount();
                 animalID = species + amount;
                 Owl animalID(name, species, age, habitat);
                 zoo.push_back(animalID);
-                break;
-            default:
-                std::cout << "This should not happen, error in object creation (SWITCH)";
+                }
+            else{
+                std::cout << "Something went wrong while creating the animal (IF-ELSE), FATAL ERROR";
                 return 0;
+                }
         }
     }
 }
@@ -186,7 +194,7 @@ void DisplayAnimals(std::vector<IAnimal*>& zoo){///Displays all the animals
 int main()
 {
     Lion.age;
-    std::vector<IAnimal> zoo;//Container for animals, it can increase in size dinamically.
+    std::vector<IAnimal*> zoo;//Container for animals, it can increase in size dinamically.
 
 
     return 0;
