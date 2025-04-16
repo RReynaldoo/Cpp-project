@@ -4,8 +4,6 @@
 #include <algorithm>
 #include <cctype>
 
-
-
 ///ALL animals should have this interface to make an array using polymorphism, it will also contain essential methods
 class IContainer{
 };
