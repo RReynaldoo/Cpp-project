@@ -72,40 +72,40 @@ class IEndangered
 ///
 ///Animals in the zoo-------------------------------------------------
 class Lion : public IAnimal, public IEndangered{
-    using IAnimal::IAnimal();//To call the IAnimal Constructor
+    using IAnimal::IAnimal;//To call the IAnimal Constructor
     const int FoodRequired = 7;
 };
 class Elephant : public IAnimal, public IEndangered{
-    using IAnimal::IAnimal();//To call the IAnimal Constructor
+    using IAnimal::IAnimal;//To call the IAnimal Constructor
     const int FoodRequired = 150;
 };
 class Axolotl : public IAnimal, public IEndangered{
-    using IAnimal::IAnimal();//To call the IAnimal Constructor
+    using IAnimal::IAnimal;//To call the IAnimal Constructor
     const int FoodRequired = 0.01;
 
 };
 class Giraffe : public IAnimal, public IEndangered{
-    using IAnimal::IAnimal();//To call the IAnimal Constructor
+    using IAnimal::IAnimal;//To call the IAnimal Constructor
     const int FoodRequired = 30;
 
 };
 class Zeebra : public IAnimal{
-    using IAnimal::IAnimal();//To call the IAnimal Constructor
+    using IAnimal::IAnimal;//To call the IAnimal Constructor
     const int FoodRequired = 10;
 
 };
 class Penguin : public IAnimal{
-    using IAnimal::IAnimal();//To call the IAnimal Constructor
+    using IAnimal::IAnimal;//To call the IAnimal Constructor
     const int FoodRequired = 10;
 
 };
 class Sloth : public IAnimal{
-    using IAnimal::IAnimal();//To call the IAnimal Constructor
+    using IAnimal::IAnimal;//To call the IAnimal Constructor
     const int FoodRequired = 1;
 
 };
 class OWl : public IAnimal{
-    using IAnimal::IAnimal();//To call the IAnimal Constructor
+    using IAnimal::IAnimal;//To call the IAnimal Constructor
     const int FoodRequired = 0.3;
 
 };
