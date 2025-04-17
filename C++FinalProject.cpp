@@ -3,7 +3,6 @@
     Lion::age -> :: is used to call a method that is inside a namespace or class
     static variable have to be declare outside classes...for some reason
 */
-
 #include <iostream>
 #include <vector>
 #include <string>
@@ -15,7 +14,9 @@
 ///ALL animals should have this interface to make an array using polymorphism, it will also contain essential methods
 class IContainer{
 };
-
+///////////////////////////////////////////////
+///////////////////////////////////////////////
+///////////////////////////////////////////////
 ///Template for animals, it is abstract so no implementation of methods
 class IAnimal
 {
@@ -64,7 +65,9 @@ class IAnimal
         }
         //-------------------------------
 };
-
+///////////////////////////////////////////////
+///////////////////////////////////////////////
+///////////////////////////////////////////////
 ///Interface for endangered species
 class IEndangered
 {
@@ -72,7 +75,9 @@ class IEndangered
 };
 
 
-///
+///////////////////////////////////////////////
+///////////////////////////////////////////////
+///////////////////////////////////////////////
 ///Animals in the zoo-------------------------------------------------
 class Lion : public IAnimal, public IEndangered{
     using IAnimal::IAnimal;//To call the IAnimal Constructor
@@ -84,18 +89,19 @@ public:
     static void incrementAmount() {
         amount++; }
 //Actions
-    void makeSound(){
-        std::cout << "" << std::endl;
+    void makeSound()const override{
+        std::cout << "The lion Rawrs" << std::endl;
     }
-    void feed(){
-        std::cout << "" << std::endl;
+    void feed() const override{
+        std::cout << "The lioon eats" << std::endl;
     }
-    virtual void monitorStatus(){
+    virtual void monitorStatus() const override{
         std::cout << "So far so good" << std::endl;
     }
+
 };
 int Lion::amount = 0;   //Sets the amount of Lions to 0
-
+///--------------------------------------------------------------------
 class Elephant : public IAnimal, public IEndangered{
     using IAnimal::IAnimal;//To call the IAnimal Constructor
     static int amount; //Number of animals for each species, helps keeping track of how many there are
@@ -106,18 +112,18 @@ public:
     static void incrementAmount() {
         amount++; }
 //Actions
-    void makeSound(){
-        std::cout << "" << std::endl;
+    void makeSound()const override{
+        std::cout << "The Elephant kinda rawrs" << std::endl;
     }
-    void feed(){
-        std::cout << "" << std::endl;
+    void feed()const override{
+        std::cout << "The elephant eats" << std::endl;
     }
-    virtual void monitorStatus(){
+    virtual void monitorStatus()const override{
         std::cout << "So far so good" << std::endl;
     }
 };
 int Elephant::amount = 0;
-
+///--------------------------------------------------------------------
 class Axolotl : public IAnimal, public IEndangered{
     using IAnimal::IAnimal;//To call the IAnimal Constructor
     static int amount; //Number of animals for each species, helps keeping track of how many there are
@@ -128,18 +134,18 @@ public:
     static void incrementAmount() {
         amount++; }
 //Actions
-    void makeSound(){
-        std::cout << "" << std::endl;
+    void makeSound()const override{
+        std::cout << "The axoltl makes bubbles" << std::endl;
     }
-    void feed(){
-        std::cout << "" << std::endl;
+    void feed()const override{
+        std::cout << "The axolotl ate" << std::endl;
     }
-    virtual void monitorStatus(){
+    virtual void monitorStatus()const override{
         std::cout << "So far so good" << std::endl;
     }
 };
 int Axolotl::amount = 0;
-
+///--------------------------------------------------------------------
 class Giraffe : public IAnimal, public IEndangered{
     using IAnimal::IAnimal;//To call the IAnimal Constructor
     static int amount; //Number of animals for each species, helps keeping track of how many there are
@@ -150,18 +156,18 @@ public:
     static void incrementAmount() {
         amount++; }
 //Actions
-    void makeSound(){
-        std::cout << "" << std::endl;
+    void makeSound()const override{
+        std::cout << "The giraffe laughs" << std::endl;
     }
-    void feed(){
-        std::cout << "" << std::endl;
+    void feed()const override{
+        std::cout << "The giraffe eats" << std::endl;
     }
-    virtual void monitorStatus(){
+    virtual void monitorStatus()const override{
         std::cout << "So far so good" << std::endl;
     }
 };
 int Giraffe::amount = 0;
-
+///--------------------------------------------------------------------
 class Zeebra : public IAnimal{
     using IAnimal::IAnimal;//To call the IAnimal Constructor
     static int amount; //Number of animals for each species, helps keeping track of how many there are
@@ -172,15 +178,15 @@ public:
     static void incrementAmount() {
         amount++; }
 //Actions
-    void makeSound(){
-        std::cout << "" << std::endl;
+    void makeSound()const override{
+        std::cout << "The zeebra makes a sound" << std::endl;
     }
-    void feed(){
-        std::cout << "" << std::endl;
+    void feed()const override{
+        std::cout << "The zeebra eats" << std::endl;
     }
 };
 int Zeebra::amount = 0;
-
+///--------------------------------------------------------------------
 class Penguin : public IAnimal{
     using IAnimal::IAnimal;//To call the IAnimal Constructor
     static int amount; //Number of animals for each species, helps keeping track of how many there are
@@ -191,15 +197,15 @@ public:
     static void incrementAmount() {
         amount++; }
 //Actions
-    void makeSound(){
-        std::cout << "" << std::endl;
+    void makeSound()const override{
+        std::cout << "The penguin makes a sound" << std::endl;
     }
-    void feed(){
-        std::cout << "" << std::endl;
+    void feed()const override{
+        std::cout << "The penguin eats fish" << std::endl;
     }
 };
 int Penguin::amount = 0;
-
+///--------------------------------------------------------------------
 class Sloth : public IAnimal{
     using IAnimal::IAnimal;//To call the IAnimal Constructor
     static int amount; //Number of animals for each species, helps keeping track of how many there are
@@ -210,15 +216,15 @@ public:
     static void incrementAmount() {
         amount++; }
 //Actions
-    void makeSound(){
-        std::cout << "" << std::endl;
+    void makeSound()const override{
+        std::cout << "The sloth makes a sound" << std::endl;
     }
-    void feed(){
-        std::cout << "" << std::endl;
+    void feed()const override{
+        std::cout << "The sloth eats" << std::endl;
     }
 };
 int Sloth::amount = 0;
-
+///--------------------------------------------------------------------
 class Owl : public IAnimal{
     using IAnimal::IAnimal;//To call the IAnimal Constructor
     static int amount; //Number of animals for each species, helps keeping track of how many there are
@@ -229,18 +235,23 @@ public:
     static void incrementAmount() {
         amount++; }
 //Actions
-    void makeSound(){
-        std::cout << "" << std::endl;
+    void makeSound()const override{
+        std::cout << "The Owl owls?" << std::endl;
     }
-    void feed(){
-        std::cout << "" << std::endl;
+    void feed()const override{
+        std::cout << "The owl eats something" << std::endl;
     }
 };
 int Owl::amount = 0;
+///////////////////////////////////////////////
+///////////////////////////////////////////////
+///////////////////////////////////////////////
 
-///------------------------------------------------------------------
-///
 
+
+///////////////////////////////////////////////
+///////////////////////////////////////////////
+///////////////////////////////////////////////
 void AddAnimal(std::string name, std::string species, int age, std::string habitat, std::vector<IAnimal*>& zoo)
 {
     int amount = 0; //To locally store the amount of animals
@@ -292,7 +303,20 @@ void AddAnimal(std::string name, std::string species, int age, std::string habit
                 return;
                 }
         }
+///////////////////////////////////////////////
+///////////////////////////////////////////////
+///////////////////////////////////////////////
 
+
+
+
+
+
+
+
+///////////////////////////////////////////////
+///////////////////////////////////////////////
+///////////////////////////////////////////////
 void RemoveAnimal(std::string name, std::vector<IAnimal*>& zoo){///Removes an animal
     for(int i = 0; i < zoo.size(); i++){
         if(zoo[i]->getName() == name){
@@ -302,12 +326,24 @@ void RemoveAnimal(std::string name, std::vector<IAnimal*>& zoo){///Removes an an
         }
     }
 }
-
+///////////////////////////////////////////////
+///////////////////////////////////////////////
+///////////////////////////////////////////////
 void DisplayAnimals(std::vector<IAnimal*>& zoo){///Displays all the animals
     for(IAnimal* animal : zoo){
         std::cout << "Name: " << animal->getName() << std::endl;
     }
 }
+///////////////////////////////////////////////
+///////////////////////////////////////////////
+///////////////////////////////////////////////
+
+
+
+
+
+
+
 
 
 int main()
