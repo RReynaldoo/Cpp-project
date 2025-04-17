@@ -63,9 +63,6 @@ class IAnimal
             return habitat;
         }
         //-------------------------------
-        int getAmount(){
-            return amount;
-        }
 };
 
 ///Interface for endangered species
@@ -86,6 +83,16 @@ public:
         return amount; }
     static void incrementAmount() {
         amount++; }
+//Actions
+    void makeSound(){
+        std::cout << "" << std::endl;
+    }
+    void feed(){
+        std::cout << "" << std::endl;
+    }
+    virtual void monitorStatus(){
+        std::cout << "So far so good" << std::endl;
+    }
 };
 int Lion::amount = 0;   //Sets the amount of Lions to 0
 
@@ -98,6 +105,16 @@ public:
         return amount; }
     static void incrementAmount() {
         amount++; }
+//Actions
+    void makeSound(){
+        std::cout << "" << std::endl;
+    }
+    void feed(){
+        std::cout << "" << std::endl;
+    }
+    virtual void monitorStatus(){
+        std::cout << "So far so good" << std::endl;
+    }
 };
 int Elephant::amount = 0;
 
@@ -110,6 +127,16 @@ public:
         return amount; }
     static void incrementAmount() {
         amount++; }
+//Actions
+    void makeSound(){
+        std::cout << "" << std::endl;
+    }
+    void feed(){
+        std::cout << "" << std::endl;
+    }
+    virtual void monitorStatus(){
+        std::cout << "So far so good" << std::endl;
+    }
 };
 int Axolotl::amount = 0;
 
@@ -122,6 +149,16 @@ public:
         return amount; }
     static void incrementAmount() {
         amount++; }
+//Actions
+    void makeSound(){
+        std::cout << "" << std::endl;
+    }
+    void feed(){
+        std::cout << "" << std::endl;
+    }
+    virtual void monitorStatus(){
+        std::cout << "So far so good" << std::endl;
+    }
 };
 int Giraffe::amount = 0;
 
@@ -134,6 +171,13 @@ public:
         return amount; }
     static void incrementAmount() {
         amount++; }
+//Actions
+    void makeSound(){
+        std::cout << "" << std::endl;
+    }
+    void feed(){
+        std::cout << "" << std::endl;
+    }
 };
 int Zeebra::amount = 0;
 
@@ -146,6 +190,13 @@ public:
         return amount; }
     static void incrementAmount() {
         amount++; }
+//Actions
+    void makeSound(){
+        std::cout << "" << std::endl;
+    }
+    void feed(){
+        std::cout << "" << std::endl;
+    }
 };
 int Penguin::amount = 0;
 
@@ -158,6 +209,13 @@ public:
         return amount; }
     static void incrementAmount() {
         amount++; }
+//Actions
+    void makeSound(){
+        std::cout << "" << std::endl;
+    }
+    void feed(){
+        std::cout << "" << std::endl;
+    }
 };
 int Sloth::amount = 0;
 
@@ -170,6 +228,13 @@ public:
         return amount; }
     static void incrementAmount() {
         amount++; }
+//Actions
+    void makeSound(){
+        std::cout << "" << std::endl;
+    }
+    void feed(){
+        std::cout << "" << std::endl;
+    }
 };
 int Owl::amount = 0;
 
@@ -183,52 +248,50 @@ void AddAnimal(std::string name, std::string species, int age, std::string habit
 
             if(species == "Lion"){
                 amount = Lion::getAmount();
-                animalID = species + amount;
+                animalID = species + std::to_string(amount);
                 zoo.push_back(new Lion(name, species, age, habitat));//Creates the new animal and pushes it to the end of the vector(array)
             }
-            if(species == "Elephant" ){
+            else if(species == "Elephant" ){
                 amount = Elephant::getAmount();
-                animalID = species + amount;
+                animalID = species + std::to_string(amount);
                 zoo.push_back(new Elephant(name, species, age, habitat));//Creates the new animal and pushes it to the end of the vector(array)
                 }
-            if(species == "Axolotl"){
+            else if(species == "Axolotl"){
                 amount = Axolotl::getAmount();
-                animalID = species + amount;
+                animalID = species + std::to_string(amount);
                 zoo.push_back(new Axolotl(name, species, age, habitat));//Creates the new animal and pushes it to the end of the vector(array)
                 }
-            if(species == "Giraffe"){
+            else if(species == "Giraffe"){
                 amount = Giraffe::getAmount();
-                animalID = species + amount;
+                animalID = species + std::to_string(amount);
                 zoo.push_back(new Giraffe(name, species, age, habitat));//Creates the new animal and pushes it to the end of the vector(array)
                 }
-            if(species == "Zeebra"){
+            else if(species == "Zeebra"){
                 amount = Zeebra::getAmount();
-                animalID = species + amount;
+                animalID = species + std::to_string(amount);
                 zoo.push_back(new Zeebra(name, species, age, habitat));//Creates the new animal and pushes it to the end of the vector(array)
                 }
-            if(species == "Penguin"){
+            else if(species == "Penguin"){
                 amount = Penguin::getAmount();
-                animalID = species + amount;
+                animalID = species + std::to_string(amount);
                 zoo.push_back(new Penguin(name, species, age, habitat));//Creates the new animal and pushes it to the end of the vector(array)
 
                 }
-            if(species == "Sloth"){
+            else if(species == "Sloth"){
                 amount = Sloth::getAmount();
-                animalID = species + amount;
+                animalID = species + std::to_string(amount);
                 zoo.push_back(new Sloth(name, species, age, habitat));//Creates the new animal and pushes it to the end of the vector(array)
                 }
-            if(species == "Owl"){
+            else if(species == "Owl"){
                 amount = Owl::getAmount();
-                animalID = species + amount;
+                animalID = species + std::to_string(amount);
                 zoo.push_back(new Owl(name, species, age, habitat));//Creates the new animal and pushes it to the end of the vector(array)
                 }
             else{
                 std::cout << "Something went wrong while creating the animal (IF-ELSE), FATAL ERROR";
-                return 0;
+                return;
                 }
         }
-    }
-}
 
 void RemoveAnimal(std::string name, std::vector<IAnimal*>& zoo){///Removes an animal
     for(int i = 0; i < zoo.size(); i++){
@@ -241,8 +304,8 @@ void RemoveAnimal(std::string name, std::vector<IAnimal*>& zoo){///Removes an an
 }
 
 void DisplayAnimals(std::vector<IAnimal*>& zoo){///Displays all the animals
-    for(IAnimal animal : zoo){
-        std::cout << animal << std::endl;
+    for(IAnimal* animal : zoo){
+        std::cout << "Name: " << animal->getName() << std::endl;
     }
 }
 
