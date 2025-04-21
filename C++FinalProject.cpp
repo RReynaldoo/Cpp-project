@@ -322,8 +322,27 @@ int Owl::amount = 0;
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
 
+void DisplayAnimals(std::vector<IAnimal*>& zoo){///Displays all the animals
+    for(IAnimal* animal : zoo){
+        std::cout << "Name: " << animal->getName() << " | Species: " << animal->getSpecies()<< std::endl;
+    }
+}
 
+void RemoveAnimal(std::vector<IAnimal*>& zoo){///Removes an animal
 
+    std::string name = " ";
+
+    std::cout << "What is the name of the animal you want to remove? >> ";
+    std::cin >> name;
+
+    for(int i = 0; i < zoo.size(); i++){
+        if(zoo[i]->getName() == name){
+            delete zoo[i];  //bye bye object
+            zoo.erase(zoo.begin() + i); //remove pointer from vector
+            break;
+        }
+    }
+}
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
@@ -356,7 +375,7 @@ void AddAnimal(std::vector<IAnimal*>& zoo)
         std::cout << "8) Owl" << std::endl;
         std::cin >> species;
 
-        if(species >= 1 || species <= 8){
+        if(species >= 1 && species <= 8){
             sentinel = 1;
         }//zeebra
         else{
@@ -377,17 +396,17 @@ void AddAnimal(std::vector<IAnimal*>& zoo)
             }
         }
         while(sentinel == 2){
-            std::cout << "What is the habitat of the animals? ";
-            std::cout << "1) Savana";
-            std::cout << "2) Grassland";
-            std::cout << "3) Freshwater Lake";
-            std::cout << "4) Wetlands";
-            std::cout << "5) Antarticle";
-            std::cout << "6) Subantartic Island";
-            std::cout << "7) Tropical Rainforest";
-            std::cout << "8) Cloud forest";
-            std::cout << "9) Desert";
-            std::cout << "10) Tundra";
+            std::cout << "What is the habitat of the animals? " << std::endl;
+            std::cout << "1) Savana" << std::endl;
+            std::cout << "2) Grassland" << std::endl;
+            std::cout << "3) Freshwater Lake" << std::endl;
+            std::cout << "4) Wetlands" << std::endl;
+            std::cout << "5) Antarticle" << std::endl;
+            std::cout << "6) Subantartic Island" << std::endl;
+            std::cout << "7) Tropical Rainforest" << std::endl;
+            std::cout << "8) Cloud forest" << std::endl;
+            std::cout << "9) Desert" << std::endl;
+            std::cout << "10) Tundra" << std::endl;
             std::cin >> habitat;
 
             if(habitat >= 1 && habitat <= 10){
@@ -404,84 +423,64 @@ void AddAnimal(std::vector<IAnimal*>& zoo)
     species_string = intToSpecies(species1);
 
 
-///Change to switch statements
-
     switch(species){
         case 1:
             amount = Lion::getAmount();
             animalID = "Lion" + std::to_string(amount);
             zoo.push_back(new Lion(name, "Lion", age, habitat_string));//Creates the new animal and pushes it to the end of the vector(array)
-
+                break;
         case 2:
             amount = Elephant::getAmount();
             animalID = "Elephant" + std::to_string(amount);
             zoo.push_back(new Elephant(name, "Elephant", age, habitat_string));//Creates the new animal and pushes it to the end of the vector(array)
-
+                break;
         case 3:
             amount = Axolotl::getAmount();
             animalID = "Axolotl" + std::to_string(amount);
             zoo.push_back(new Axolotl(name, "Axolotl", age, habitat_string));//Creates the new animal and pushes it to the end of the vector(array)
-
+                break;
         case 4:
             amount = Giraffe::getAmount();
             animalID = "Giraffe" + std::to_string(amount);
             zoo.push_back(new Giraffe(name, "Giraffe", age, habitat_string));//Creates the new animal and pushes it to the end of the vector(array)
-
+                break;
         case 5:
             amount = Zebra::getAmount();
             animalID = "Zebra" + std::to_string(amount);
             zoo.push_back(new Zebra(name, "Zebra", age, habitat_string));//Creates the new animal and pushes it to the end of the vector(array)
-
+                break;
         case 6:
             amount = Penguin::getAmount();
             animalID = "Penguin" + std::to_string(amount);
             zoo.push_back(new Penguin(name, "Penguin", age, habitat_string));//Creates the new animal and pushes it to the end of the vector(array)
-
+                break;
         case 7:
             amount = Sloth::getAmount();
             animalID = "Sloth" + std::to_string(amount);
             zoo.push_back(new Sloth(name, "Sloth", age, habitat_string));//Creates the new animal and pushes it to the end of the vector(array)
-
+                break;
         case 8:
             amount = Owl::getAmount();
             animalID = "Owl" + std::to_string(amount);
             zoo.push_back(new Owl(name, "Owl", age, habitat_string));//Creates the new animal and pushes it to the end of the vector(array)
-
+                break;
         default:
             std::cout << "Something went wrong while creating the animal (IF-ELSE), FATAL ERROR";
-            return;
-}
-///////////////////////////////////////////////
-///////////////////////////////////////////////
-///////////////////////////////////////////////
-
-
-
-
-
-
-
-
-///////////////////////////////////////////////
-///////////////////////////////////////////////
-///////////////////////////////////////////////
-void RemoveAnimal(std::string name, std::vector<IAnimal*>& zoo){///Removes an animal
-    for(int i = 0; i < zoo.size(); i++){
-        if(zoo[i]->getName() == name){
-            delete zoo[i];  //bye bye object
-            zoo.erase(zoo.begin() + i); //remove pointer from vector
             break;
-        }
-    }
+}
 }
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
-void DisplayAnimals(std::vector<IAnimal*>& zoo){///Displays all the animals
-    for(IAnimal* animal : zoo){
-        std::cout << "Name: " << animal->getName() << std::endl;
-    }
-}
+
+///////////////////////////////////////////////
+///////////////////////////////////////////////
+///////////////////////////////////////////////
+
+///////////////////////////////////////////////
+///////////////////////////////////////////////
+///////////////////////////////////////////////
+
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
@@ -503,21 +502,22 @@ int main()
 
     std::vector<IAnimal*> zoo;//Container for animals, it can increase in size dinamically.
 
+    while(true){
     std::cout << "WELCOME TO THE ZOO ADMINISTRATION SYSTEM." << std::endl;
     std::cout << "Here you will be able to administer your animals, some of the funtionalities you will have are:" << std::endl;
-    std::this_thread::sleep_for(std::chrono::seconds(1)); // Delay for 1 seconds
+    //std::this_thread::sleep_for(std::chrono::seconds(0.1)); // Delay for 1 seconds
     std::cout << "1) Add animals to your zoo" << std::endl;
-    std::this_thread::sleep_for(std::chrono::seconds(1)); // Delay for 1 seconds
+    //std::this_thread::sleep_for(std::chrono::seconds(0.1)); // Delay for 1 seconds
     std::cout << "2) Remove animals from your zoo (Free them)" << std::endl;
-    std::this_thread::sleep_for(std::chrono::seconds(1)); // Delay for 1 seconds
+    //std::this_thread::sleep_for(std::chrono::seconds(0.1)); // Delay for 1 seconds
     std::cout << "3) Display the animals you currently have" << std::endl;
-    std::this_thread::sleep_for(std::chrono::seconds(1)); // Delay for 1 seconds
+    //std::this_thread::sleep_for(std::chrono::seconds(0.1)); // Delay for 1 seconds
     std::cout << "4) Feed the animals" << std::endl;
-    std::this_thread::sleep_for(std::chrono::seconds(1)); // Delay for 1 seconds
+    //std::this_thread::sleep_for(std::chrono::seconds(0.1)); // Delay for 1 seconds
     std::cout << "5) Gain money by opening the zoo the people (WIP)" << std::endl;
-    std::this_thread::sleep_for(std::chrono::seconds(1)); // Delay for 1 seconds
+    //std::this_thread::sleep_for(std::chrono::seconds(0.1)); // Delay for 1 seconds
     std::cout << "6) Choose what to do dayly, if eather gain money or feed them, the more animals the more money (WIP)" << std::endl;
-    std::this_thread::sleep_for(std::chrono::seconds(1)); // Delay for 1 seconds
+    //std::this_thread::sleep_for(std::chrono::seconds(0.1)); // Delay for 1 seconds
 
     std::cout << "\n";
     std::cout << "Choose an option: ";
@@ -525,24 +525,26 @@ int main()
 
 
     ///Change to switch statements
-    if(optionSelected == 1){
-        AddAnimal(zoo);
-    }
-    else if(optionSelected == 2){
-    }
-    else if(optionSelected == 3){
-    }
-    else if(optionSelected == 4){
-    }
-    else if(optionSelected == 5){
-    }
-        std::cout << "Work in process";
-    else if(optionSelected == 6){
-        std::cout << "Work in process";
-    }
-    else{
-        std::cout << "You should have selected an option :(";
-    }
+
+    switch(optionSelected){
+        case 1:
+            AddAnimal(zoo);
+        case 2:
+            RemoveAnimal(zoo);
+            break;
+        case 3:
+            DisplayAnimals(zoo);
+            break;
+        case 4:
+            break;
+        case 5:
+            std::cout << "Work in process";
+        case 6:
+            std::cout << "Work in process";
+        default:
+            std::cout << "You should have selected an option :(";
+            }
+}
     /*
     std::cin.get(); // Wait for user input
     clearScreen(); // Clear the screen
@@ -559,7 +561,6 @@ int main()
 */
 ///Main
 /*
-    -Add animals
     -Remove animals
     -Calculate total food required
     -Chech habitat space to add more animals
@@ -572,4 +573,3 @@ int main()
     -If an animal passes a certain age/days without eating dies
     -Option to make a day pass
 */
-
