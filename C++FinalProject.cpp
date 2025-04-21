@@ -4,7 +4,7 @@
     static variable have to be declare outside classes...for some reason
 */
 #include <iostream>
-#include <vector>   //To use vextors
+#include <vector>   //To use vectors
 #include <string>   //I forgot what is this used for
 #include <algorithm>//Same for this
 #include <cctype>   //For vectors too...I believe
@@ -12,6 +12,79 @@
 #include <thread>  //For waiting some seconds
 #include <chrono>   //For waiting some seconds
 
+enum class Species{//This will be used when selecting a species for the animal
+    Lion = 1,
+    Elephant = 2,
+    Axolotl = 3,
+    Giraffe = 4,
+    Zebra = 5,
+    Penguin = 6,
+    Sloth = 7,
+    Owl = 8
+};
+
+enum class Habitat{
+    Savanas = 1,
+    Grasslands = 2,
+    FreshwaterLakes = 3,
+    Wetlands = 4,
+    AntarticIce = 5,
+    SubantarticIsland = 6,
+    TropicalRainforest = 7,
+    CloudForests = 8,
+    Deserts = 9,
+    Tundra = 10
+};
+
+std::string intToSpecies(Species species){  //To transform the species number to a string
+    switch(species){
+        case Species::Lion:
+            return "Lion";
+        case Species::Elephant:
+            return "Elephant";
+        case Species::Axolotl:
+            return "Axolotl";
+        case Species::Giraffe:
+            return "Giraffe";
+        case Species::Zebra:
+            return "Zebra";
+        case Species::Penguin:
+            return "Penguin";
+        case Species::Sloth:
+            return "Sloth";
+        case Species::Owl:
+            return "Owl";
+        default:
+            return "UNKNOWN";
+    }
+}
+
+std::string intToHabitats(Habitat habitat){
+    switch(habitat){
+        case Habitat::Savanas:
+            return "Savana";
+        case Habitat::Grasslands:
+            return "Grassland";
+        case Habitat::FreshwaterLakes:
+            return "Freshwater Lake";
+        case Habitat::Wetlands:
+            return "Wetland";
+        case Habitat::AntarticIce:
+            return "Antartic Ice";
+        case Habitat::SubantarticIsland:
+            return "Subantartic Island";
+        case Habitat::TropicalRainforest:
+            return "Tropical Rainforest";
+        case Habitat::CloudForests:
+            return "Cloud Forest";
+        case Habitat::Deserts:
+            return "Desert";
+        case Habitat::Tundra:
+            return "Tundra";
+        default:
+            return "UNKNOWN";
+    }
+}
 
 ///ALL animals should have this interface to make an array using polymorphism, it will also contain essential methods
 class IContainer{
@@ -170,7 +243,7 @@ public:
 };
 int Giraffe::amount = 0;
 ///--------------------------------------------------------------------
-class Zeebra : public IAnimal{
+class Zebra : public IAnimal{
     using IAnimal::IAnimal;//To call the IAnimal Constructor
     static int amount; //Number of animals for each species, helps keeping track of how many there are
     const int FoodRequired = 10;
@@ -180,14 +253,14 @@ public:
     static void incrementAmount() {
         amount++; }
 //Actions
-    void makeSound()const override{
-        std::cout << "The zeebra makes a sound" << std::endl;
+    void makeSound()const override{//zeebra
+        std::cout << "The zebra makes a sound" << std::endl;
     }
     void feed()const override{
-        std::cout << "The zeebra eats" << std::endl;
+        std::cout << "The zebra eats" << std::endl;
     }
 };
-int Zeebra::amount = 0;
+int Zebra::amount = 0;
 ///--------------------------------------------------------------------
 class Penguin : public IAnimal{
     using IAnimal::IAnimal;//To call the IAnimal Constructor
@@ -259,89 +332,125 @@ void AddAnimal(std::vector<IAnimal*>& zoo)
     int amount = 0; //To locally store the amount of animals
     std::string animalID = " ";   //Name that the animal will have within the array
     int sentinel = 0;   //Exists the loop
-    int innerSentinel = 0;
-    int choice = 1;
-    int otherChoice = 0;
-    int yetAnotherSentinel = 0;
+//----------------------Information of the animal------------------------
+    int species = 1;    //species chosen by the user (ENUM)
+    std::string species_string = " ";    //species enum in string form
+
+    std::string name = " ";  //Name of the animal chosen by the user
+
+    int age = 0;    //Age of the animal chosen by the user
+    int habitat = 0;//habitat of the animal chosen by the user (ENUM)
+    std::string habitat_string= " ";    //habitat enum in string form
+//---------------------------------------------------------------------
 
 
-        while( sentinel == 0){
-            while(innerSentinel == 0){
-                std::cout << "What type of animal do you want to acquire: " << std::endl;
-                std::cout << "1) Lion" << std::endl;
-                std::cout << "2) Elephant" << std::endl;
-                std::cout << "3) Axolotl" << std::endl;
-                std::cout << "4) Giraffe" << std::endl;
-                std::cout << "5) Zeebra" << std::endl;
-                std::cout << "6) Penguin" << std::endl;
-                std::cout << "7) Sloth" << std::endl;
-                std::cout << "8) Owl" << std::endl;
-                std::cin >> choice;
+    while(sentinel == 0){
+        std::cout << "What type of animal do you want to acquire: " << std::endl;
+        std::cout << "1) Lion" << std::endl;
+        std::cout << "2) Elephant" << std::endl;
+        std::cout << "3) Axolotl" << std::endl;
+        std::cout << "4) Giraffe" << std::endl;
+        std::cout << "5) Zebra" << std::endl;
+        std::cout << "6) Penguin" << std::endl;
+        std::cout << "7) Sloth" << std::endl;
+        std::cout << "8) Owl" << std::endl;
+        std::cin >> species;
 
-                if(choice >= 1 || choice <= 8){
-                    sentinel = 1;
-                }
+        if(species >= 1 || species <= 8){
+            sentinel = 1;
+        }//zeebra
+        else{
+            std::cout << "Try again" << std::endl;
+        }
+    }
+        std::cout << "What is the name of the animal >> ";
+        std::cin >> name;
+
+        while(sentinel == 1){
+            std::cout << "What is the age of the animal >>";
+            std::cin >> age;
+            if(age > 0){
+                sentinel = 2;
             }
-            while(yetAnotherSentinel == 0){
-                std::cout << "Do you wish to acquire another animal?";
-                std::cout << "1) Yes";
-                std::cout << "2) No";
-                std::cin >> otherChoice;
-                if(otherChoice == 1 || otherChoice == 2){
-                    yetAnotherSentinel = 1;
-                }
-                else {
-                    std::cout << "Wrong, try again" << std::endl;
-                }
+            else {
+                std::cout << "Wait for it to be born, try again" << std::endl;
             }
         }
+        while(sentinel == 2){
+            std::cout << "What is the habitat of the animals? ";
+            std::cout << "1) Savana";
+            std::cout << "2) Grassland";
+            std::cout << "3) Freshwater Lake";
+            std::cout << "4) Wetlands";
+            std::cout << "5) Antarticle";
+            std::cout << "6) Subantartic Island";
+            std::cout << "7) Tropical Rainforest";
+            std::cout << "8) Cloud forest";
+            std::cout << "9) Desert";
+            std::cout << "10) Tundra";
+            std::cin >> habitat;
 
-            if(species == "Lion"){
-                amount = Lion::getAmount();
-                animalID = species + std::to_string(amount);
-                zoo.push_back(new Lion(name, species, age, habitat));//Creates the new animal and pushes it to the end of the vector(array)
+            if(habitat >= 1 && habitat <= 10){
+                sentinel = 3;
             }
-            else if(species == "Elephant" ){
-                amount = Elephant::getAmount();
-                animalID = species + std::to_string(amount);
-                zoo.push_back(new Elephant(name, species, age, habitat));//Creates the new animal and pushes it to the end of the vector(array)
-                }
-            else if(species == "Axolotl"){
-                amount = Axolotl::getAmount();
-                animalID = species + std::to_string(amount);
-                zoo.push_back(new Axolotl(name, species, age, habitat));//Creates the new animal and pushes it to the end of the vector(array)
-                }
-            else if(species == "Giraffe"){
-                amount = Giraffe::getAmount();
-                animalID = species + std::to_string(amount);
-                zoo.push_back(new Giraffe(name, species, age, habitat));//Creates the new animal and pushes it to the end of the vector(array)
-                }
-            else if(species == "Zeebra"){
-                amount = Zeebra::getAmount();
-                animalID = species + std::to_string(amount);
-                zoo.push_back(new Zeebra(name, species, age, habitat));//Creates the new animal and pushes it to the end of the vector(array)
-                }
-            else if(species == "Penguin"){
-                amount = Penguin::getAmount();
-                animalID = species + std::to_string(amount);
-                zoo.push_back(new Penguin(name, species, age, habitat));//Creates the new animal and pushes it to the end of the vector(array)
-
-                }
-            else if(species == "Sloth"){
-                amount = Sloth::getAmount();
-                animalID = species + std::to_string(amount);
-                zoo.push_back(new Sloth(name, species, age, habitat));//Creates the new animal and pushes it to the end of the vector(array)
-                }
-            else if(species == "Owl"){
-                amount = Owl::getAmount();
-                animalID = species + std::to_string(amount);
-                zoo.push_back(new Owl(name, species, age, habitat));//Creates the new animal and pushes it to the end of the vector(array)
-                }
-            else{
-                std::cout << "Something went wrong while creating the animal (IF-ELSE), FATAL ERROR";
-                return;
-                }
+            else {
+                std::cout << "Try again";
+            }
         }
+    Habitat habitat1 = static_cast<Habitat>(habitat);
+    habitat_string = intToHabitats(habitat1);
+
+    Species species1 = static_cast<Species>(species);
+    species_string = intToSpecies(species1);
+
+
+///Change to switch statements
+
+    switch(species){
+        case 1:
+            amount = Lion::getAmount();
+            animalID = "Lion" + std::to_string(amount);
+            zoo.push_back(new Lion(name, "Lion", age, habitat_string));//Creates the new animal and pushes it to the end of the vector(array)
+
+        case 2:
+            amount = Elephant::getAmount();
+            animalID = "Elephant" + std::to_string(amount);
+            zoo.push_back(new Elephant(name, "Elephant", age, habitat_string));//Creates the new animal and pushes it to the end of the vector(array)
+
+        case 3:
+            amount = Axolotl::getAmount();
+            animalID = "Axolotl" + std::to_string(amount);
+            zoo.push_back(new Axolotl(name, "Axolotl", age, habitat_string));//Creates the new animal and pushes it to the end of the vector(array)
+
+        case 4:
+            amount = Giraffe::getAmount();
+            animalID = "Giraffe" + std::to_string(amount);
+            zoo.push_back(new Giraffe(name, "Giraffe", age, habitat_string));//Creates the new animal and pushes it to the end of the vector(array)
+
+        case 5:
+            amount = Zebra::getAmount();
+            animalID = "Zebra" + std::to_string(amount);
+            zoo.push_back(new Zebra(name, "Zebra", age, habitat_string));//Creates the new animal and pushes it to the end of the vector(array)
+
+        case 6:
+            amount = Penguin::getAmount();
+            animalID = "Penguin" + std::to_string(amount);
+            zoo.push_back(new Penguin(name, "Penguin", age, habitat_string));//Creates the new animal and pushes it to the end of the vector(array)
+
+        case 7:
+            amount = Sloth::getAmount();
+            animalID = "Sloth" + std::to_string(amount);
+            zoo.push_back(new Sloth(name, "Sloth", age, habitat_string));//Creates the new animal and pushes it to the end of the vector(array)
+
+        case 8:
+            amount = Owl::getAmount();
+            animalID = "Owl" + std::to_string(amount);
+            zoo.push_back(new Owl(name, "Owl", age, habitat_string));//Creates the new animal and pushes it to the end of the vector(array)
+
+        default:
+            std::cout << "Something went wrong while creating the animal (IF-ELSE), FATAL ERROR";
+            return;
+}
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
@@ -414,6 +523,8 @@ int main()
     std::cout << "Choose an option: ";
     std::cin >> optionSelected;
 
+
+    ///Change to switch statements
     if(optionSelected == 1){
         AddAnimal(zoo);
     }
