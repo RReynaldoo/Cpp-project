@@ -4,11 +4,13 @@
     static variable have to be declare outside classes...for some reason
 */
 #include <iostream>
-#include <vector>
-#include <string>
-#include <algorithm>
-#include <cctype>
-
+#include <vector>   //To use vextors
+#include <string>   //I forgot what is this used for
+#include <algorithm>//Same for this
+#include <cctype>   //For vectors too...I believe
+#include <cstdlib>//using the library to clear the screen
+#include <thread>  //For waiting some seconds
+#include <chrono>   //For waiting some seconds
 
 
 ///ALL animals should have this interface to make an array using polymorphism, it will also contain essential methods
@@ -252,10 +254,47 @@ int Owl::amount = 0;
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
-void AddAnimal(std::string name, std::string species, int age, std::string habitat, std::vector<IAnimal*>& zoo)
+void AddAnimal(std::vector<IAnimal*>& zoo)
 {
     int amount = 0; //To locally store the amount of animals
     std::string animalID = " ";   //Name that the animal will have within the array
+    int sentinel = 0;   //Exists the loop
+    int innerSentinel = 0;
+    int choice = 1;
+    int otherChoice = 0;
+    int yetAnotherSentinel = 0;
+
+
+        while( sentinel == 0){
+            while(innerSentinel == 0){
+                std::cout << "What type of animal do you want to acquire: " << std::endl;
+                std::cout << "1) Lion" << std::endl;
+                std::cout << "2) Elephant" << std::endl;
+                std::cout << "3) Axolotl" << std::endl;
+                std::cout << "4) Giraffe" << std::endl;
+                std::cout << "5) Zeebra" << std::endl;
+                std::cout << "6) Penguin" << std::endl;
+                std::cout << "7) Sloth" << std::endl;
+                std::cout << "8) Owl" << std::endl;
+                std::cin >> choice;
+
+                if(choice >= 1 || choice <= 8){
+                    sentinel = 1;
+                }
+            }
+            while(yetAnotherSentinel == 0){
+                std::cout << "Do you wish to acquire another animal?";
+                std::cout << "1) Yes";
+                std::cout << "2) No";
+                std::cin >> otherChoice;
+                if(otherChoice == 1 || otherChoice == 2){
+                    yetAnotherSentinel = 1;
+                }
+                else {
+                    std::cout << "Wrong, try again" << std::endl;
+                }
+            }
+        }
 
             if(species == "Lion"){
                 amount = Lion::getAmount();
@@ -337,7 +376,9 @@ void DisplayAnimals(std::vector<IAnimal*>& zoo){///Displays all the animals
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
-
+void clearScreen(){ ///Clears the screen
+    system("cls");
+}
 
 
 
@@ -348,8 +389,53 @@ void DisplayAnimals(std::vector<IAnimal*>& zoo){///Displays all the animals
 
 int main()
 {
+    int optionSelected = 0; //Stores what the used chosed to do
+    int desicion = 0;   //For desicion in the else loop
+
     std::vector<IAnimal*> zoo;//Container for animals, it can increase in size dinamically.
 
+    std::cout << "WELCOME TO THE ZOO ADMINISTRATION SYSTEM." << std::endl;
+    std::cout << "Here you will be able to administer your animals, some of the funtionalities you will have are:" << std::endl;
+    std::this_thread::sleep_for(std::chrono::seconds(1)); // Delay for 1 seconds
+    std::cout << "1) Add animals to your zoo" << std::endl;
+    std::this_thread::sleep_for(std::chrono::seconds(1)); // Delay for 1 seconds
+    std::cout << "2) Remove animals from your zoo (Free them)" << std::endl;
+    std::this_thread::sleep_for(std::chrono::seconds(1)); // Delay for 1 seconds
+    std::cout << "3) Display the animals you currently have" << std::endl;
+    std::this_thread::sleep_for(std::chrono::seconds(1)); // Delay for 1 seconds
+    std::cout << "4) Feed the animals" << std::endl;
+    std::this_thread::sleep_for(std::chrono::seconds(1)); // Delay for 1 seconds
+    std::cout << "5) Gain money by opening the zoo the people (WIP)" << std::endl;
+    std::this_thread::sleep_for(std::chrono::seconds(1)); // Delay for 1 seconds
+    std::cout << "6) Choose what to do dayly, if eather gain money or feed them, the more animals the more money (WIP)" << std::endl;
+    std::this_thread::sleep_for(std::chrono::seconds(1)); // Delay for 1 seconds
+
+    std::cout << "\n";
+    std::cout << "Choose an option: ";
+    std::cin >> optionSelected;
+
+    if(optionSelected == 1){
+        AddAnimal(zoo);
+    }
+    else if(optionSelected == 2){
+    }
+    else if(optionSelected == 3){
+    }
+    else if(optionSelected == 4){
+    }
+    else if(optionSelected == 5){
+    }
+        std::cout << "Work in process";
+    else if(optionSelected == 6){
+        std::cout << "Work in process";
+    }
+    else{
+        std::cout << "You should have selected an option :(";
+    }
+    /*
+    std::cin.get(); // Wait for user input
+    clearScreen(); // Clear the screen
+    */
 
     return 0;
 }
