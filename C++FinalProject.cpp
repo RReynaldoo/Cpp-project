@@ -85,7 +85,6 @@ std::string intToHabitats(Habitat habitat){
             return "UNKNOWN";
     }
 }
-
 ///ALL animals should have this interface to make an array using polymorphism, it will also contain essential methods
 class IContainer{
 };
@@ -100,7 +99,7 @@ class IAnimal
         std::string species;
         int age;
         std::string habitat;
-
+        bool hasEaten;
     public:
         IAnimal(std::string name, std::string species, int age, std::string habitat){//Constructor of all animals
             setName(name);
@@ -108,9 +107,11 @@ class IAnimal
             setAge(age);
             setHabitat(habitat);
         }
+        virtual ~IAnimal() = default;
         //Basic methods
         virtual void makeSound() const = 0;
         virtual void feed() const = 0;
+        virtual double getFoodRequired() const = 0;
         //Setters and getters to be inherited to the animals
         void setName(std::string name){
             this->name = name;
@@ -174,6 +175,9 @@ public:
     virtual void monitorStatus() const override{
         std::cout << "So far so good" << std::endl;
     }
+    double getFoodRequired() const override {
+    return FoodRequired;
+}
 
 };
 int Lion::amount = 0;   //Sets the amount of Lions to 0
@@ -197,6 +201,9 @@ public:
     virtual void monitorStatus()const override{
         std::cout << "So far so good" << std::endl;
     }
+    double getFoodRequired() const override {
+    return FoodRequired;
+}
 };
 int Elephant::amount = 0;
 ///--------------------------------------------------------------------
@@ -219,6 +226,9 @@ public:
     virtual void monitorStatus()const override{
         std::cout << "So far so good" << std::endl;
     }
+    double getFoodRequired() const override {
+    return FoodRequired;
+}
 };
 int Axolotl::amount = 0;
 ///--------------------------------------------------------------------
@@ -241,6 +251,9 @@ public:
     virtual void monitorStatus()const override{
         std::cout << "So far so good" << std::endl;
     }
+    double getFoodRequired() const override {
+    return FoodRequired;
+}
 };
 int Giraffe::amount = 0;
 ///--------------------------------------------------------------------
@@ -260,6 +273,9 @@ public:
     void feed()const override{
         std::cout << "The zebra eats" << std::endl;
     }
+    double getFoodRequired() const override {
+    return FoodRequired;
+}
 };
 int Zebra::amount = 0;
 ///--------------------------------------------------------------------
@@ -279,6 +295,9 @@ public:
     void feed()const override{
         std::cout << "The penguin eats fish" << std::endl;
     }
+    double getFoodRequired() const override {
+    return FoodRequired;
+}
 };
 int Penguin::amount = 0;
 ///--------------------------------------------------------------------
@@ -298,6 +317,9 @@ public:
     void feed()const override{
         std::cout << "The sloth eats" << std::endl;
     }
+    double getFoodRequired() const override {
+    return FoodRequired;
+}
 };
 int Sloth::amount = 0;
 ///--------------------------------------------------------------------
@@ -317,6 +339,9 @@ public:
     void feed()const override{
         std::cout << "The owl eats something" << std::endl;
     }
+    double getFoodRequired() const override {
+    return FoodRequired;
+}
 };
 int Owl::amount = 0;
 ///////////////////////////////////////////////
@@ -485,6 +510,14 @@ void AddAnimal(std::vector<IAnimal*>& zoo)
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
+int totalFoodRequired(std::vector<IAnimal*>& zoo, int index) {  //recursive funtion to get all the food required for the animal
+    // Base case: if index is out of bounds, return 0
+    if (index >= zoo.size()) {
+        return 0;
+    }
+    // Recursive case: add the food required for the current animal
+    return zoo[index]->getFoodRequired() + totalFoodRequired(zoo, index + 1);
+}
 
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
@@ -505,6 +538,7 @@ int main()
     int optionSelected = 0; //Stores what the used chosed to do
     int desicion = 0;   //For desicion in the else loop
     std::string placeHolder = " "; //used to wait for user input and go to the next step
+    double food = 0;
 
     std::vector<IAnimal*> zoo;//Container for animals, it can increase in size dinamically.
 
@@ -520,7 +554,7 @@ int main()
     //std::this_thread::sleep_for(std::chrono::seconds(0.1)); // Delay for 1 seconds
     std::cout << "4) Feed the animals" << std::endl;
     //std::this_thread::sleep_for(std::chrono::seconds(0.1)); // Delay for 1 seconds
-    std::cout << "5) Gain money by opening the zoo the people (WIP)" << std::endl;
+    std::cout << "5) How much food you need for the animals you currently have" << std::endl;
     //std::this_thread::sleep_for(std::chrono::seconds(0.1)); // Delay for 1 seconds
     std::cout << "6) Choose what to do dayly, if eather gain money or feed them, the more animals the more money (WIP)" << std::endl;
     //std::this_thread::sleep_for(std::chrono::seconds(0.1)); // Delay for 1 seconds
@@ -560,7 +594,12 @@ int main()
                 optionSelected = 0;
             break;
         case 5:
-            std::cout << "Work in process";
+                food = totalFoodRequired(zoo, 0);
+                std::cout << "The total food required in KG for your current animals is: " << food;
+                std::cin.ignore();
+                std::cin.get();
+                clearScreen();
+
                 break;
         case 6:
             std::cout << "Work in process";
@@ -580,7 +619,6 @@ int main()
 
 ///Pending
 /*
-    -Recursive function to know the total amount of food the animals will need
     -The sound of animals and feed methods
     -Habitat class/method: Area for animals and that has a certain capacity for each animal
 */
