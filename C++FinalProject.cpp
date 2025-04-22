@@ -100,6 +100,7 @@ class IAnimal
         std::string species;
         int age;
         std::string habitat;
+
     public:
         IAnimal(std::string name, std::string species, int age, std::string habitat){//Constructor of all animals
             setName(name);
@@ -323,24 +324,31 @@ int Owl::amount = 0;
 ///////////////////////////////////////////////
 
 void DisplayAnimals(std::vector<IAnimal*>& zoo){///Displays all the animals
+    int ccount = 0;
+    std::cout << "# \tName \tSpecies \tAge \tHabitat" << std::endl;
     for(IAnimal* animal : zoo){
-        std::cout << "Name: " << animal->getName() << " | Species: " << animal->getSpecies()<< std::endl;
+        std::cout << ccount+1 << "\t" << animal->getName() << "\t" << animal->getSpecies() << "\t\t" << animal->getAge() << "\t" << animal->getHabitat()<< std::endl;
+        ccount++;
     }
+}
+
+void clearScreen() {
+    std::cout << "\033[2J\033[1;1H"; // Clear the screen and move the cursor to the top-left corner
 }
 
 void RemoveAnimal(std::vector<IAnimal*>& zoo){///Removes an animal
 
-    std::string name = " ";
+    int animalNumber;
+    std::cout << "What is the name of the animal you want to remove? Type a number: >> ";
+    DisplayAnimals(zoo);
+    std::cin >> animalNumber;
 
-    std::cout << "What is the name of the animal you want to remove? >> ";
-    std::cin >> name;
-
-    for(int i = 0; i < zoo.size(); i++){
-        if(zoo[i]->getName() == name){
-            delete zoo[i];  //bye bye object
-            zoo.erase(zoo.begin() + i); //remove pointer from vector
-            break;
-        }
+    if (animalNumber > 0 && animalNumber < zoo.size()) {
+        delete zoo[animalNumber-1];               // Deallocate memory
+        zoo.erase(zoo.begin() + animalNumber-1);  // Remove pointer from vector
+        std::cout << "Animal removed successfully.\n";
+    } else {
+        std::cout << "Invalid animal number.\n";
     }
 }
 ///////////////////////////////////////////////
@@ -375,15 +383,18 @@ void AddAnimal(std::vector<IAnimal*>& zoo)
         std::cout << "8) Owl" << std::endl;
         std::cin >> species;
 
+
         if(species >= 1 && species <= 8){
             sentinel = 1;
         }//zeebra
         else{
             std::cout << "Try again" << std::endl;
         }
+        clearScreen();
     }
         std::cout << "What is the name of the animal >> ";
         std::cin >> name;
+        clearScreen();
 
         while(sentinel == 1){
             std::cout << "What is the age of the animal >>";
@@ -394,6 +405,7 @@ void AddAnimal(std::vector<IAnimal*>& zoo)
             else {
                 std::cout << "Wait for it to be born, try again" << std::endl;
             }
+            clearScreen();
         }
         while(sentinel == 2){
             std::cout << "What is the habitat of the animals? " << std::endl;
@@ -415,6 +427,7 @@ void AddAnimal(std::vector<IAnimal*>& zoo)
             else {
                 std::cout << "Try again";
             }
+            clearScreen();
         }
     Habitat habitat1 = static_cast<Habitat>(habitat);
     habitat_string = intToHabitats(habitat1);
@@ -484,14 +497,6 @@ void AddAnimal(std::vector<IAnimal*>& zoo)
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
-void clearScreen(){ ///Clears the screen
-    system("cls");
-}
-
-
-
-
-
 
 
 
@@ -499,6 +504,7 @@ int main()
 {
     int optionSelected = 0; //Stores what the used chosed to do
     int desicion = 0;   //For desicion in the else loop
+    std::string placeHolder = " "; //used to wait for user input and go to the next step
 
     std::vector<IAnimal*> zoo;//Container for animals, it can increase in size dinamically.
 
@@ -522,6 +528,7 @@ int main()
     std::cout << "\n";
     std::cout << "Choose an option: ";
     std::cin >> optionSelected;
+    clearScreen();
 
 
     ///Change to switch statements
@@ -529,20 +536,38 @@ int main()
     switch(optionSelected){
         case 1:
             AddAnimal(zoo);
+                optionSelected = 0;
+
+                std::cout << "A new animal has joined the zoo!!! " << std::endl;
+                std::cin.ignore();  //Catches the next space left by the previous selection, similar to waht happends in java
+                std::cin.get(); //Waits for user input
+                clearScreen(); // Clear the screen
+            break;
         case 2:
             RemoveAnimal(zoo);
+                optionSelected = 0;
+
             break;
         case 3:
             DisplayAnimals(zoo);
+                optionSelected = 0;
+                std::cin.ignore();
+                std::cin.get();
+                clearScreen();
             break;
         case 4:
+//            FeedAnimal();
+                optionSelected = 0;
             break;
         case 5:
             std::cout << "Work in process";
+                break;
         case 6:
             std::cout << "Work in process";
+                break;
         default:
             std::cout << "You should have selected an option :(";
+                break;
             }
 }
     /*
@@ -561,7 +586,6 @@ int main()
 */
 ///Main
 /*
-    -Remove animals
     -Calculate total food required
     -Chech habitat space to add more animals
 */
