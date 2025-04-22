@@ -660,7 +660,6 @@ int main()
 
 ///Pending
 /*
-    -The sound of animals and feed methods
     -Habitat class/method: Area for animals and that has a certain capacity for each animal
 */
 ///Main
