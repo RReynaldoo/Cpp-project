@@ -536,6 +536,21 @@ void FeedAnimal(std::vector<IAnimal*>& zoo){
     } else {
         std::cout << "Invalid animal number.\n";
     }
+}
+
+void PetAnimal(std::vector<IAnimal*>& zoo){
+    int animal = 0;
+
+    std::cout << "What animal you want to Pet? Choose a number" << std::endl;
+    DisplayAnimals(zoo);
+    std::cout << "Choose: ";
+    std::cin >> animal;
+
+    if (animal > 0 && animal <= zoo.size()) {
+        zoo[animal-1]->makeSound();
+    } else {
+        std::cout << "Invalid animal number.\n";
+    }
 
 }
 
@@ -572,8 +587,9 @@ int main()
     //std::this_thread::sleep_for(std::chrono::seconds(0.1)); // Delay for 1 seconds
     std::cout << "5) How much food you need for the animals you currently have" << std::endl;
     //std::this_thread::sleep_for(std::chrono::seconds(0.1)); // Delay for 1 seconds
-    std::cout << "Pet animal" << std::endl;
+    std::cout << "6) Pet animal" << std::endl;
     //std::this_thread::sleep_for(std::chrono::seconds(0.1)); // Delay for 1 seconds
+    std::cout << "7) Exit" << std::endl;
 
     std::cout << "\n";
     std::cout << "Choose an option: ";
@@ -620,7 +636,14 @@ int main()
 
                 break;
         case 6:
-            std::cout << "Work in process";
+            PetAnimal(zoo);
+            optionSelected = 0;
+            std::cin.ignore();
+            std::cin.get();
+            clearScreen();
+                break;
+        case 7:
+            return 0;
                 break;
         default:
             std::cout << "You should have selected an option :(";
