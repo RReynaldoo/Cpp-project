@@ -523,6 +523,22 @@ int totalFoodRequired(std::vector<IAnimal*>& zoo, int index) {  //recursive funt
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
 
+void FeedAnimal(std::vector<IAnimal*>& zoo){
+    int animal = 0;
+
+    std::cout << "What animal you want to feed? Choose a number" << std::endl;
+    DisplayAnimals(zoo);
+    std::cout << "Choose: ";
+    std::cin >> animal;
+
+    if (animal > 0 && animal <= zoo.size()) {
+        zoo[animal-1]->feed();
+    } else {
+        std::cout << "Invalid animal number.\n";
+    }
+
+}
+
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
@@ -556,7 +572,7 @@ int main()
     //std::this_thread::sleep_for(std::chrono::seconds(0.1)); // Delay for 1 seconds
     std::cout << "5) How much food you need for the animals you currently have" << std::endl;
     //std::this_thread::sleep_for(std::chrono::seconds(0.1)); // Delay for 1 seconds
-    std::cout << "6) Choose what to do dayly, if eather gain money or feed them, the more animals the more money (WIP)" << std::endl;
+    std::cout << "Pet animal" << std::endl;
     //std::this_thread::sleep_for(std::chrono::seconds(0.1)); // Delay for 1 seconds
 
     std::cout << "\n";
@@ -580,7 +596,6 @@ int main()
         case 2:
             RemoveAnimal(zoo);
                 optionSelected = 0;
-
             break;
         case 3:
             DisplayAnimals(zoo);
@@ -590,8 +605,11 @@ int main()
                 clearScreen();
             break;
         case 4:
-//            FeedAnimal();
+            FeedAnimal(zoo);
                 optionSelected = 0;
+                std::cin.ignore();
+                std::cin.get();
+                clearScreen();
             break;
         case 5:
                 food = totalFoodRequired(zoo, 0);
@@ -624,7 +642,6 @@ int main()
 */
 ///Main
 /*
-    -Calculate total food required
     -Chech habitat space to add more animals
 */
 ///Extras
