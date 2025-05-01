@@ -11,6 +11,7 @@
 #include <cstdlib>//using the library to clear the screen
 #include <thread>  //For waiting some seconds
 #include <chrono>   //For waiting some seconds
+#include <iomanip>  // for std::setw
 
 enum class Species{//This will be used when selecting a species for the animal
     Lion = 1,
@@ -36,61 +37,12 @@ enum class Habitat{
     Tundra = 10
 };
 
-std::string intToSpecies(Species species){  //To transform the species number to a string
-    switch(species){
-        case Species::Lion:
-            return "Lion";
-        case Species::Elephant:
-            return "Elephant";
-        case Species::Axolotl:
-            return "Axolotl";
-        case Species::Giraffe:
-            return "Giraffe";
-        case Species::Zebra:
-            return "Zebra";
-        case Species::Penguin:
-            return "Penguin";
-        case Species::Sloth:
-            return "Sloth";
-        case Species::Owl:
-            return "Owl";
-        default:
-            return "UNKNOWN";
-    }
-}
-
-std::string intToHabitats(Habitat habitat){
-    switch(habitat){
-        case Habitat::Savanas:
-            return "Savana";
-        case Habitat::Grasslands:
-            return "Grassland";
-        case Habitat::FreshwaterLakes:
-            return "Freshwater Lake";
-        case Habitat::Wetlands:
-            return "Wetland";
-        case Habitat::AntarticIce:
-            return "Antartic Ice";
-        case Habitat::SubantarticIsland:
-            return "Subantartic Island";
-        case Habitat::TropicalRainforest:
-            return "Tropical Rainforest";
-        case Habitat::CloudForests:
-            return "Cloud Forest";
-        case Habitat::Deserts:
-            return "Desert";
-        case Habitat::Tundra:
-            return "Tundra";
-        default:
-            return "UNKNOWN";
-    }
-}
-///ALL animals should have this interface to make an array using polymorphism, it will also contain essential methods
-class IContainer{
+///Interface for endangered species
+class IEndangered
+{
+    virtual void monitorStatus() const = 0;
 };
-///////////////////////////////////////////////
-///////////////////////////////////////////////
-///////////////////////////////////////////////
+
 ///Template for animals, it is abstract so no implementation of methods
 class IAnimal
 {
@@ -142,19 +94,11 @@ class IAnimal
         }
         //-------------------------------
 };
-///////////////////////////////////////////////
-///////////////////////////////////////////////
-///////////////////////////////////////////////
-///Interface for endangered species
-class IEndangered
-{
-    virtual void monitorStatus() const = 0;
+
+///ALL animals should have this interface to make an array using polymorphism, it will also contain essential methods
+class IContainer{
 };
 
-
-///////////////////////////////////////////////
-///////////////////////////////////////////////
-///////////////////////////////////////////////
 ///Animals in the zoo-------------------------------------------------
 class Lion : public IAnimal, public IEndangered{
     using IAnimal::IAnimal;//To call the IAnimal Constructor
@@ -344,15 +288,88 @@ public:
 }
 };
 int Owl::amount = 0;
+
+///Declarations and methods
+std::string intToSpecies(Species species);
+std::string intToHabitats(Habitat habitat);
+void DisplayAnimals(std::vector<IAnimal*>& zoo);
+void clearScreen();
+void RemoveAnimal(std::vector<IAnimal*>& zoo);
+void AddAnimal(std::vector<IAnimal*>& zoo);
+int totalFoodRequired(std::vector<IAnimal*>& zoo, int index);
+void FeedAnimal(std::vector<IAnimal*>& zoo);
+void PetAnimal(std::vector<IAnimal*>& zoo);
+
+std::string intToSpecies(Species species){  //To transform the species number to a string
+    switch(species){
+        case Species::Lion:
+            return "Lion";
+        case Species::Elephant:
+            return "Elephant";
+        case Species::Axolotl:
+            return "Axolotl";
+        case Species::Giraffe:
+            return "Giraffe";
+        case Species::Zebra:
+            return "Zebra";
+        case Species::Penguin:
+            return "Penguin";
+        case Species::Sloth:
+            return "Sloth";
+        case Species::Owl:
+            return "Owl";
+        default:
+            return "UNKNOWN";
+    }
+}
+
+std::string intToHabitats(Habitat habitat){
+    switch(habitat){
+        case Habitat::Savanas:
+            return "Savana";
+        case Habitat::Grasslands:
+            return "Grassland";
+        case Habitat::FreshwaterLakes:
+            return "Freshwater Lake";
+        case Habitat::Wetlands:
+            return "Wetland";
+        case Habitat::AntarticIce:
+            return "Antartic Ice";
+        case Habitat::SubantarticIsland:
+            return "Subantartic Island";
+        case Habitat::TropicalRainforest:
+            return "Tropical Rainforest";
+        case Habitat::CloudForests:
+            return "Cloud Forest";
+        case Habitat::Deserts:
+            return "Desert";
+        case Habitat::Tundra:
+            return "Tundra";
+        default:
+            return "UNKNOWN";
+    }
+}
+
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
 
 void DisplayAnimals(std::vector<IAnimal*>& zoo){///Displays all the animals
     int ccount = 0;
-    std::cout << "# \tName \tSpecies \tAge \tHabitat" << std::endl;
+    std::cout << std::left;
+    std::cout << std::setw(10) << '#';
+    std::cout << std::setw(20) << "Name";
+    std::cout << std::setw(10) << "Species";
+    std::cout << std::setw(10) << "Age";
+    std::cout << std::setw(10) << "Habitat" << std::endl;
+
     for(IAnimal* animal : zoo){
-        std::cout << ccount+1 << "\t" << animal->getName() << "\t" << animal->getSpecies() << "\t\t" << animal->getAge() << "\t" << animal->getHabitat()<< std::endl;
+        std::cout << std::left;
+        std::cout << std::setw(10) << ccount+1;
+        std::cout << std::setw(20) << animal->getName();
+        std::cout << std::setw(10) << animal->getSpecies();
+        std::cout << std::setw(10) << animal->getAge();
+        std::cout << std::setw(10) << animal->getHabitat() << std::endl;
         ccount++;
     }
 }
@@ -364,7 +381,7 @@ void clearScreen() {
 void RemoveAnimal(std::vector<IAnimal*>& zoo){///Removes an animal
 
     int animalNumber;
-    std::cout << "What is the name of the animal you want to remove? Type a number: >> ";
+    std::cout << "What is the name of the animal you want to remove? Type a number: >> " << std::endl;
     DisplayAnimals(zoo);
     std::cin >> animalNumber;
 
@@ -383,7 +400,9 @@ void AddAnimal(std::vector<IAnimal*>& zoo)
 {
     int amount = 0; //To locally store the amount of animals
     std::string animalID = " ";   //Name that the animal will have within the array
-    int sentinel = 0;   //Exists the loop
+    int sentinel = 0;   //Exits the loop
+    int strSentinel = 0;
+
 //----------------------Information of the animal------------------------
     int species = 1;    //species chosen by the user (ENUM)
     std::string species_string = " ";    //species enum in string form
@@ -406,6 +425,7 @@ void AddAnimal(std::vector<IAnimal*>& zoo)
         std::cout << "6) Penguin" << std::endl;
         std::cout << "7) Sloth" << std::endl;
         std::cout << "8) Owl" << std::endl;
+        std::cout << "Choose: ";
         std::cin >> species;
 
 
@@ -417,8 +437,20 @@ void AddAnimal(std::vector<IAnimal*>& zoo)
         }
         clearScreen();
     }
+        while(strSentinel = 0){
         std::cout << "What is the name of the animal >> ";
         std::cin >> name;
+        if(name.length() < 20){
+            strSentinel = 1;
+        }
+        else{
+            std::cout << std::endl << "Name is too long, try a shorter one" << std::endl;
+            std::cin.ignore();
+            std::cin.get();
+            clearScreen();
+        }
+        }
+
         clearScreen();
 
         while(sentinel == 1){
@@ -554,16 +586,6 @@ void PetAnimal(std::vector<IAnimal*>& zoo){
 
 }
 
-///////////////////////////////////////////////
-///////////////////////////////////////////////
-///////////////////////////////////////////////
-
-///////////////////////////////////////////////
-///////////////////////////////////////////////
-///////////////////////////////////////////////
-
-
-
 int main()
 {
     int optionSelected = 0; //Stores what the used chosed to do
@@ -575,7 +597,7 @@ int main()
 
     while(true){
     std::cout << "WELCOME TO THE ZOO ADMINISTRATION SYSTEM." << std::endl;
-    std::cout << "Here you will be able to administer your animals, some of the funtionalities you will have are:" << std::endl;
+    std::cout << "Here you will be able to administer your animals, what do you want to do?" << std::endl << std::endl;
     //std::this_thread::sleep_for(std::chrono::seconds(0.1)); // Delay for 1 seconds
     std::cout << "1) Add animals to your zoo" << std::endl;
     //std::this_thread::sleep_for(std::chrono::seconds(0.1)); // Delay for 1 seconds
@@ -596,14 +618,10 @@ int main()
     std::cin >> optionSelected;
     clearScreen();
 
-
-    ///Change to switch statements
-
     switch(optionSelected){
         case 1:
             AddAnimal(zoo);
                 optionSelected = 0;
-
                 std::cout << "A new animal has joined the zoo!!! " << std::endl;
                 std::cin.ignore();  //Catches the next space left by the previous selection, similar to waht happends in java
                 std::cin.get(); //Waits for user input
@@ -612,6 +630,9 @@ int main()
         case 2:
             RemoveAnimal(zoo);
                 optionSelected = 0;
+                std::cin.ignore();
+                std::cin.get();
+                clearScreen();
             break;
         case 3:
             DisplayAnimals(zoo);
@@ -654,23 +675,6 @@ int main()
     std::cin.get(); // Wait for user input
     clearScreen(); // Clear the screen
     */
-
     return 0;
 }
 
-///Pending
-/*
-    -Habitat class/method: Area for animals and that has a certain capacity for each animal
-*/
-///Main
-/*
-    -Chech habitat space to add more animals
-*/
-///Extras
-/*
-    -Add ASCII animal representation when displaying them
-    -Add money to the game to buy food
-    -Add option to allow people to enter the zoo and gain money
-    -If an animal passes a certain age/days without eating dies
-    -Option to make a day pass
-*/
