@@ -220,7 +220,7 @@ public:
         amount++; }
 //Actions
     void makeSound()const override{//zeebra
-        std::cout << "The zebra barks" << std::endl;
+        std::cout << "The zebra brays" << std::endl;
     }
     void feed()const override{
         std::cout << "The zebra eats" << std::endl;
